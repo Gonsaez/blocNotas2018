@@ -12,6 +12,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
@@ -28,10 +29,13 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         FileNameExtensionFilter filtro = new FileNameExtensionFilter(".txt", "txt");
         abrirComo.setFileFilter(filtro);
         guardarComo.setFileFilter(filtro);
+        texto.setText("");
     }
 
     public void escribirEnFichero() {
-        File archivo = new File(guardarComo.getSelectedFile() + ".txt");
+        File archivo = new File(guardarComo.getSelectedFile().getAbsolutePath());
+        String nombre = archivo.getName();
+        String extension = nombre.substring(nombre.lastIndexOf('.')+1);
         //Crea el String con la cadena XML
         String lineas = texto.getText();
         try (BufferedWriter fichero1 = new BufferedWriter(new FileWriter(archivo))) {
@@ -128,6 +132,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         jMenu1.setText("File");
 
         abrir.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.CTRL_MASK));
+        abrir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/codigo/abrir.png"))); // NOI18N
         abrir.setText("Abrir");
         abrir.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -137,6 +142,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         jMenu1.add(abrir);
 
         Guardar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
+        Guardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/codigo/guardar.png"))); // NOI18N
         Guardar.setText("Guardar");
         Guardar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -167,13 +173,18 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void GuardarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GuardarMousePressed
-        int result = guardarComo.showSaveDialog(null);
-        if (result == JFileChooser.APPROVE_OPTION) {
-            escribirEnFichero();
-        } else if (result == JFileChooser.CANCEL_OPTION) {
-            System.out.println("Cancel was selected");
+        String ruta = "";
+        try {
+            if (guardarComo.showSaveDialog(null) == guardarComo.APPROVE_OPTION) {
+                ruta = guardarComo.getSelectedFile().getAbsolutePath();
+                escribirEnFichero();
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
-
+        if (new File(ruta).exists()) {
+            if (JOptionPane.OK_OPTION == JOptionPane.showConfirmDialog(this, "El fichero existe,deseas reemplazarlo?", "Titulo", JOptionPane.YES_NO_OPTION)){}
+        }
     }//GEN-LAST:event_GuardarMousePressed
 
     private void abrirMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_abrirMousePressed
@@ -181,7 +192,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         if (resultado == JFileChooser.APPROVE_OPTION) {
             leerEnFichero();
         } else if (resultado == JFileChooser.CANCEL_OPTION) {
-            System.out.println("Cancel was selected");
+            System.out.println("");
         }
 
     }//GEN-LAST:event_abrirMousePressed
@@ -200,16 +211,24 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ventanaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ventanaPrincipal.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ventanaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ventanaPrincipal.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ventanaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ventanaPrincipal.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ventanaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ventanaPrincipal.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
