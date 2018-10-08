@@ -28,8 +28,8 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         initComponents();
         FileNameExtensionFilter filtro = new FileNameExtensionFilter(".txt", "txt");
         abrirComo.setFileFilter(filtro);
-        guardar.setFileFilter(filtro);
         guardarComo.setFileFilter(filtro);
+        texto.setText("");
     }
 
     /**
@@ -42,13 +42,11 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         jDialog1 = new javax.swing.JDialog();
-        guardar = new javax.swing.JFileChooser();
-        jDialog2 = new javax.swing.JDialog();
         abrirComo = new javax.swing.JFileChooser();
-        jDialog3 = new javax.swing.JDialog();
+        jDialog2 = new javax.swing.JDialog();
         guardarComo = new javax.swing.JFileChooser();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        texto = new javax.swing.JTextPane();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        texto = new javax.swing.JTextArea();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         abrir = new javax.swing.JMenuItem();
@@ -63,7 +61,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
             .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jDialog1Layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(guardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(abrirComo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
         jDialog1Layout.setVerticalGroup(
@@ -72,7 +70,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
             .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jDialog1Layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(guardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(abrirComo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
 
@@ -84,7 +82,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
             .addGroup(jDialog2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jDialog2Layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(abrirComo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(guardarComo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
         jDialog2Layout.setVerticalGroup(
@@ -93,34 +91,15 @@ public class ventanaPrincipal extends javax.swing.JFrame {
             .addGroup(jDialog2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jDialog2Layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(abrirComo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
-
-        javax.swing.GroupLayout jDialog3Layout = new javax.swing.GroupLayout(jDialog3.getContentPane());
-        jDialog3.getContentPane().setLayout(jDialog3Layout);
-        jDialog3Layout.setHorizontalGroup(
-            jDialog3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-            .addGroup(jDialog3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jDialog3Layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(guardarComo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
-        jDialog3Layout.setVerticalGroup(
-            jDialog3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-            .addGroup(jDialog3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jDialog3Layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
                     .addComponent(guardarComo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jScrollPane1.setViewportView(texto);
+        texto.setColumns(20);
+        texto.setRows(5);
+        jScrollPane2.setViewportView(texto);
 
         jMenu1.setText("File");
 
@@ -162,11 +141,11 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 589, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 589, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 429, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 429, Short.MAX_VALUE)
         );
 
         pack();
@@ -176,22 +155,29 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         //TODO fv pille ruta del fichero abierto
         //fn pilla el fichero abierto con la nueva info
         //hacer el filewriter
-        //File ficheroViejo = new File();
-        //ficheroViejo.delete();
-        //File ficheroNuevo = new File();
+        File ficheroViejo = new File(abrirComo.getSelectedFile().getPath());
+        ficheroViejo.delete();
+        File ficheroNuevo = new File(ficheroViejo.toString());
+        try {
+            //Se crea un Nuevo objeto FileWriter
+            FileWriter fichero = new FileWriter(ficheroNuevo);
+            //Se escribe el fichero
+            fichero.write(texto.getText() + "\n");
+            //Se cierra el fichero
+            fichero.close();
+        } catch (IOException ex) {
+            System.out.println("error al acceder al fichero");
+        }
     }//GEN-LAST:event_guardarSMousePressed
 
     private void abrirMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_abrirMousePressed
         int resultado = abrirComo.showOpenDialog(null);
-        StringBuilder sb = new StringBuilder();
         if (resultado == JFileChooser.APPROVE_OPTION) {
             try {
                 BufferedReader archivo = new BufferedReader(new FileReader(abrirComo.getSelectedFile()));
-                String valor;
-                while ((valor = archivo.readLine()) != null) {
-                    sb.append(valor + "\n");
-                    texto.setText(valor + "\n\b");
-                    valor = archivo.readLine();
+                String aux;
+                while ((aux = archivo.readLine()) != null) {
+                    texto.append(aux + "\n");
                 }
                 archivo.close();
             } catch (IOException ex) {
@@ -267,16 +253,14 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem abrir;
     private javax.swing.JFileChooser abrirComo;
-    private javax.swing.JFileChooser guardar;
     private javax.swing.JMenuItem guardarC;
     private javax.swing.JFileChooser guardarComo;
     private javax.swing.JMenuItem guardarS;
     private javax.swing.JDialog jDialog1;
     private javax.swing.JDialog jDialog2;
-    private javax.swing.JDialog jDialog3;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextPane texto;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextArea texto;
     // End of variables declaration//GEN-END:variables
 }
