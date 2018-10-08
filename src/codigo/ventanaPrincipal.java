@@ -32,13 +32,6 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         guardarComo.setFileFilter(filtro);
     }
 
-    public void escribirEnFichero() {
-
-        File archivo1 = new File(guardarS.getName());
-
-        //Crea el String con la cadena XML
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -190,12 +183,14 @@ public class ventanaPrincipal extends javax.swing.JFrame {
 
     private void abrirMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_abrirMousePressed
         int resultado = abrirComo.showOpenDialog(null);
+        StringBuilder sb = new StringBuilder();
         if (resultado == JFileChooser.APPROVE_OPTION) {
             try {
                 BufferedReader archivo = new BufferedReader(new FileReader(abrirComo.getSelectedFile()));
-                String valor = archivo.readLine();
-                while (valor != null) {
-                    texto.setText(valor + "\n");
+                String valor;
+                while ((valor = archivo.readLine()) != null) {
+                    sb.append(valor + "\n");
+                    texto.setText(valor + "\n\b");
                     valor = archivo.readLine();
                 }
                 archivo.close();
