@@ -52,6 +52,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         abrir = new javax.swing.JMenuItem();
         guardarS = new javax.swing.JMenuItem();
         guardarC = new javax.swing.JMenuItem();
+        importar = new javax.swing.JMenuItem();
 
         javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
         jDialog1.getContentPane().setLayout(jDialog1Layout);
@@ -133,6 +134,16 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         });
         jMenu1.add(guardarC);
 
+        importar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.CTRL_MASK));
+        importar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/codigo/0.png"))); // NOI18N
+        importar.setText("Importar al archivo anterior");
+        importar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                importarMousePressed(evt);
+            }
+        });
+        jMenu1.add(importar);
+
         jMenuBar1.add(jMenu1);
 
         setJMenuBar(jMenuBar1);
@@ -158,11 +169,12 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         File ficheroViejo = new File(abrirComo.getSelectedFile().getPath());
         ficheroViejo.delete();
         File ficheroNuevo = new File(ficheroViejo.toString());
+        String linea = texto.getText();
         try {
             //Se crea un Nuevo objeto FileWriter
-            FileWriter fichero = new FileWriter(ficheroNuevo);
+            FileWriter fichero = new FileWriter(ficheroNuevo, true);
             //Se escribe el fichero
-            fichero.write(texto.getText() + "\n");
+            fichero.write(linea);
             //Se cierra el fichero
             fichero.close();
         } catch (IOException ex) {
@@ -206,6 +218,21 @@ public class ventanaPrincipal extends javax.swing.JFrame {
             System.out.println("");
         }
     }//GEN-LAST:event_guardarCMousePressed
+
+    private void importarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_importarMousePressed
+        File ficheroNuevo = new File(abrirComo.getSelectedFile().getPath());
+        String linea = texto.getText();
+        try {
+            //Se crea un Nuevo objeto FileWriter
+            FileWriter fichero = new FileWriter(ficheroNuevo, true);
+            //Se escribe el fichero
+            fichero.write(linea);
+            //Se cierra el fichero
+            fichero.close();
+        } catch (IOException ex) {
+            System.out.println("error al acceder al fichero");
+        }
+    }//GEN-LAST:event_importarMousePressed
 
     /**
      * @param args the command line arguments
@@ -256,6 +283,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem guardarC;
     private javax.swing.JFileChooser guardarComo;
     private javax.swing.JMenuItem guardarS;
+    private javax.swing.JMenuItem importar;
     private javax.swing.JDialog jDialog1;
     private javax.swing.JDialog jDialog2;
     private javax.swing.JMenu jMenu1;
