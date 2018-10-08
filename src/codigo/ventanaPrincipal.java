@@ -33,32 +33,10 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     }
 
     public void escribirEnFichero() {
-        File archivo = new File(guardarComo.getSelectedFile() + ".txt");
-        File archivo1 = new File(guardarS.getName());
-        String nombre = archivo.getName();
-        //Crea el String con la cadena XML
-        String lineas = texto.getText();
-        try (BufferedWriter fichero1 = new BufferedWriter(new FileWriter(archivo))) {
-            fichero1.write(lineas);
-            fichero1.newLine();
-            fichero1.close();
-        } catch (IOException ex) {
-            System.out.println("error al acceder al fichero");
-        }
-    }
 
-    public int leerEnFichero() {
-        try {
-            BufferedReader archivo = new BufferedReader(new FileReader(abrirComo.getSelectedFile()));
-            String valor = archivo.readLine();
-            while (valor != null) {
-                texto.setText(valor);
-                valor = archivo.readLine();
-            }
-        } catch (IOException ex) {
-            System.out.println("Error al leer el fichero");
-        }
-        return -1;
+        File archivo1 = new File(guardarS.getName());
+
+        //Crea el String con la cadena XML
     }
 
     /**
@@ -202,16 +180,28 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void guardarSMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_guardarSMousePressed
-        File fichero = guardar.getSelectedFile();
-        String nombre = fichero.getName();
-        String extension = nombre.substring(nombre.lastIndexOf('.') + 1);
-        escribirEnFichero();
+        //TODO fv pille ruta del fichero abierto
+        //fn pilla el fichero abierto con la nueva info
+        //hacer el filewriter
+        //File ficheroViejo = new File();
+        //ficheroViejo.delete();
+        //File ficheroNuevo = new File();
     }//GEN-LAST:event_guardarSMousePressed
 
     private void abrirMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_abrirMousePressed
         int resultado = abrirComo.showOpenDialog(null);
         if (resultado == JFileChooser.APPROVE_OPTION) {
-            leerEnFichero();
+            try {
+                BufferedReader archivo = new BufferedReader(new FileReader(abrirComo.getSelectedFile()));
+                String valor = archivo.readLine();
+                while (valor != null) {
+                    texto.setText(valor + "\n");
+                    valor = archivo.readLine();
+                }
+                archivo.close();
+            } catch (IOException ex) {
+                System.out.println("Error al leer el fichero");
+            }
         } else if (resultado == JFileChooser.CANCEL_OPTION) {
             System.out.println("");
         }
@@ -220,22 +210,19 @@ public class ventanaPrincipal extends javax.swing.JFrame {
 
     private void guardarCMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_guardarCMousePressed
         int result = guardarComo.showSaveDialog(null);
+        File archivo = new File(guardarComo.getSelectedFile().getPath());
+        String nombre = archivo.getName();
+        String lineas = texto.getText();
         if (result == JFileChooser.APPROVE_OPTION) {
-            escribirEnFichero();
-        } else if (result == JFileChooser.CANCEL_OPTION) {
-            System.out.println("Cancel was selected");
-        String ruta = "";
-        try {
-            if (guardarComo.showSaveDialog(null) == guardarComo.APPROVE_OPTION) {
-                ruta = guardarComo.getSelectedFile().getAbsolutePath();
-                escribirEnFichero();
+            try (BufferedWriter fichero1 = new BufferedWriter(new FileWriter(archivo))) {
+                fichero1.write(lineas);
+                fichero1.newLine();
+                fichero1.close();
+            } catch (IOException ex) {
+                System.out.println("error al acceder al fichero");
             }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        if (new File(ruta).exists()) {
-            if (JOptionPane.OK_OPTION == JOptionPane.showConfirmDialog(this, "El fichero existe,deseas reemplazarlo?", "Titulo", JOptionPane.YES_NO_OPTION)){}
-        }
+        } else if (result == JFileChooser.CANCEL_OPTION) {
+            System.out.println("");
         }
     }//GEN-LAST:event_guardarCMousePressed
 
