@@ -26,9 +26,13 @@ public class ventanaPrincipal extends javax.swing.JFrame {
      */
     public ventanaPrincipal() {
         initComponents();
+        //Para poder conseguir que solo abra los archivos .txt lo que he hecho
+        //es hacer un filtro de extensión y se lo he aplicado al jFileChooser.
         FileNameExtensionFilter filtro = new FileNameExtensionFilter(".txt", "txt");
         abrirComo.setFileFilter(filtro);
         guardarComo.setFileFilter(filtro);
+        //Pongo la pantalla al iniciar el bloc de notas en blanco. No es
+        //necesario pero he querido hacerlo.
         texto.setText("");
     }
 
@@ -163,38 +167,52 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void guardarSMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_guardarSMousePressed
-        //TODO fv pille ruta del fichero abierto
-        //fn pilla el fichero abierto con la nueva info
-        //hacer el filewriter
+        //Para hacer el guardado simple, lo que hago es coger la ruta
+        //del fichero antiguo que queremos sobreescribir.
         File ficheroViejo = new File(abrirComo.getSelectedFile().getPath());
+        //Lo borro.
         ficheroViejo.delete();
+        //Creo un fichero a partir de la ruta y el nombre que tiene.
         File ficheroNuevo = new File(ficheroViejo.toString());
+        //Guardo en un String lo que he escrito nuevo en el jTextArea.
         String linea = texto.getText();
         try {
             //Se crea un Nuevo objeto FileWriter
             FileWriter fichero = new FileWriter(ficheroNuevo, true);
-            //Se escribe el fichero
+            //Se escribe el fichero con lo que he guardado en el String.
             fichero.write(linea);
             //Se cierra el fichero
             fichero.close();
         } catch (IOException ex) {
-            System.out.println("error al acceder al fichero");
+            //Si me da error salta por consola que no se ha podido guardar.
+            System.out.println("No se ha podido guardar");
         }
     }//GEN-LAST:event_guardarSMousePressed
 
     private void abrirMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_abrirMousePressed
+        //A la hora de abrir, utilizo el jFileChooser para que me salga la
+        //ventana.
         int resultado = abrirComo.showOpenDialog(null);
+        //Creo un if que si le doy al botón abrir, me haga la lectura del archivo.
         if (resultado == JFileChooser.APPROVE_OPTION) {
+           //Creo el try catch para hacer que lea el archivo.
             try {
+                //Creo el BufferedReader y que coja la ruta del archivo elegido.
                 BufferedReader archivo = new BufferedReader(new FileReader(abrirComo.getSelectedFile()));
+                //Creo un String que guarde el texto del archivo a abrir.
                 String aux;
+                //Hago un bucle para poder leer todas las líneas del documento.
                 while ((aux = archivo.readLine()) != null) {
                     texto.append(aux + "\n");
                 }
+                //Cierro el fichero.
                 archivo.close();
             } catch (IOException ex) {
+                //Si me da error salta por consola que no se ha podido guardar.
                 System.out.println("Error al leer el fichero");
             }
+            //Si no le doy al botón abrir, creo un else if que
+            //si le doy al botón cancelar me sale del jFileChooser.
         } else if (resultado == JFileChooser.CANCEL_OPTION) {
             System.out.println("");
         }
@@ -202,35 +220,52 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_abrirMousePressed
 
     private void guardarCMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_guardarCMousePressed
+        //A la hora de guardar como, abro un jFileChooser.
         int result = guardarComo.showSaveDialog(null);
+        //Cojo la ruta del fichero que queremos guardar.
         File archivo = new File(guardarComo.getSelectedFile().getPath());
+        //Creo un String que guarde con el nombre que queramos.
         String nombre = archivo.getName();
+        //Creo otro String que coja el texto del jTextArea y lo guarde en el String.
         String lineas = texto.getText();
+        //Creo un if que si le doy a guardar, me haga el guardado.
         if (result == JFileChooser.APPROVE_OPTION) {
+            //Creo el try catch para que me guarde el documento.
+            //Creo el BufferedWriter con el nombre que le hemos dado en el String nombre.
             try (BufferedWriter fichero1 = new BufferedWriter(new FileWriter(archivo))) {
+                //Escribo las lineas.
                 fichero1.write(lineas);
+                //Creo una nueva linea en blanco.
                 fichero1.newLine();
+                //Cierro el fichero.
                 fichero1.close();
             } catch (IOException ex) {
-                System.out.println("error al acceder al fichero");
+                //Si me da error salta por consola que no se ha podido guardar.
+                System.out.println("error al guardar el fichero");
             }
+            //Si no le doy al botón guardar, creo un else if que
+            //si le doy al botón cancelar me sale del jFileChooser.
         } else if (result == JFileChooser.CANCEL_OPTION) {
             System.out.println("");
         }
     }//GEN-LAST:event_guardarCMousePressed
 
     private void importarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_importarMousePressed
+        //Cojo la ruta del archivo abierto, anteriormente.
         File ficheroNuevo = new File(abrirComo.getSelectedFile().getPath());
+        //Guardo en un String lo que se ha añadido en el jTextArea.
         String linea = texto.getText();
+        //Creo un try catch donde me haga la importación al anterior fichero.
         try {
-            //Se crea un Nuevo objeto FileWriter
+            //Se crea un Nuevo objeto FileWriter.
             FileWriter fichero = new FileWriter(ficheroNuevo, true);
-            //Se escribe el fichero
+            //Se escribe el fichero.
             fichero.write(linea);
-            //Se cierra el fichero
+            //Se cierra el fichero.
             fichero.close();
         } catch (IOException ex) {
-            System.out.println("error al acceder al fichero");
+            //Si me da error salta por consola que no se ha podido importar.
+            System.out.println("error al importar al fichero");
         }
     }//GEN-LAST:event_importarMousePressed
 
