@@ -195,7 +195,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         int resultado = abrirComo.showOpenDialog(null);
         //Creo un if que si le doy al botón abrir, me haga la lectura del archivo.
         if (resultado == JFileChooser.APPROVE_OPTION) {
-           //Creo el try catch para hacer que lea el archivo.
+            //Creo el try catch para hacer que lea el archivo.
             try {
                 //Creo el BufferedReader y que coja la ruta del archivo elegido.
                 BufferedReader archivo = new BufferedReader(new FileReader(abrirComo.getSelectedFile()));
